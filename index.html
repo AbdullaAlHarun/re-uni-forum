@@ -15,23 +15,63 @@
 <body>
     <header class="ml-4 mr-4 mt-8 lg:ml-32 lg:mr-32">
         <!--Navbar-->
-        <div class="nav-container flex">
-            <div class="navbar bg-white">
+        <div class="nav-container flex justify-between navbar">
+            <div class=" bg-white">
                 <h2 class="btn btn-ghost text-xl text-black"><a href="index.html">ReUni</a></h2>
             </div>
-            <div class="flex">
-                <ul class="flex">
-                    <li><button class="btn tooltip btn-circle  primary ml-4" data-tip="hello"><i class="fa-solid fa-house"></i></button></li>
-                    <li><button class="btn btn-circle tooltip primary ml-4"><i class="fa-solid fa-pen" data-tip="hello"></i></button></li>
-                    <li><button class="btn btn-circle tooltip primary ml-4"><i class="fa-solid fa-user-plus" data-tip="hello"></i></button></li>
-                    <li><button class="btn btn-circle tooltip primary ml-4"><i class="fa-regular fa-flag" data-tip="hello"></i></button></li>
-                </ul>
-                <button class="btn btn-primary ml-4 rounded-xl text-white">Sign in</button>
+            <div class="flex ">
+               <div>
+                    <ul class="flex justify-between gap-4">
+                        <li><button class="btn tooltip btn-circle  primary" data-tip="Home"><i class="fa-solid fa-house"></i></button></li>
+                        <li><button class="btn btn-circle tooltip primary " data-tip="Recent"><i class="fa-solid fa-pen" ></i></button></li>
+                        <li><button class="btn btn-circle tooltip primary " data-tip="Profile"><i class="fa-solid fa-user-plus" ></i></button></li>
+                        <li><button class="btn btn-circle tooltip primary mr-4" data-tip="About"><i class="fa-regular fa-flag" ></i></button></li>
+                    </ul>
+               </div>
+               <div>
+                <button class="btn btn-primary rounded-full bold">Sign in</button>
+               </div>
             </div>
         </div>
         <!--Header banner Section-->
-        <div>
-            
+        <div class="hero py-24 rounded-3xl mt-7 bg-[#12132D]" style="background-image: url(images/bgbanner.png);">
+            <div class="header-container grid grid-cols-1 lg:grid-cols-2 gap-x-36 p-4">
+                <!--Banner Left-->
+                <div class="hero-content text-center text-neutral-content">
+                    <div class="max-w-[600px]">
+                    <h1 class="mb-5 lg:text-5xl text-3xl font-extrabold text-[#fff] text-start">Welcome to the<br><span class="text-[#797DFC]">ReUni</span> Forum</h1>
+                    <p class="mb-5 font-bold text-start">Share your favorite opinion and win and uni <br> forum coffee mug!
+                    </p>
+                    <label class="input input-bordered flex items-center gap-2 rounded-full px-4 py-8">
+                        <input type="text" class="grow" placeholder="Search" />
+                        <button class="btn btn-primary rounded-full p-4">Search</button>
+                    </label>
+                    </div>
+                </div>
+                <!--Banner right-->
+                <div class="bg-white rounded-xl p-8">
+                    <div class="flex text-center justify-between py-4">
+                        <p>Registered Users</p>
+                        <p>01</p>
+                    </div>
+                
+                    <div class="flex text-center justify-between py-4">
+                        <p>Forum</p>
+                        <p>05</p>
+                    </div>
+                
+                    <div class="flex text-center justify-between py-4">
+                        <p>Topics</p>
+                        <p>01</p>
+                    </div>
+                
+                    <div class="flex text-center justify-between py-4">
+                        <p>Repiles</p>
+                        <p>01</p>
+                    </div>
+                
+                </div>
+            </div>
         </div>
      
     </header>
