@@ -54,6 +54,17 @@ const displayPost = posts => {
 
         // Append the postCard to the container
         postContainer.appendChild(postCard);
+
+        // Get the circleIcon for this post
+        var circleIcon = document.getElementById(`circle-icon-${post.id}`);
+        var isActive = post.isActive;
+
+        // Add class based on the value of isActive
+        if (isActive) {
+            circleIcon.classList.add("fa-circle-green");
+        } else {
+            circleIcon.classList.add("fa-circle-red");
+        }
     });
 
     // Add event listener to "Mark as read" buttons
