@@ -1,18 +1,11 @@
 let appendCount = 0; // Initialize counter variable
 
-const loadPost = async () => {
-    const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/posts');
-    const data = await res.json();
-    const posts = data.posts;
+// Function to display filtered posts
+const displayPosts = (posts, postContainer) => {
+    // Clear previous posts
+    postContainer.innerHTML = '';
 
-    displayPost(posts);
-}
-
-const displayPost = posts => {
-    const postContainer = document.getElementById('post-container');
-    const readCountElement = document.getElementById('read-count');
-    const readPostContainer = document.getElementById('read-post');
-
+    // Display filtered posts
     posts.forEach(post => {
         const postCard = document.createElement('div');
         postCard.classList = `rounded-xl border-2 p-6 bg-gray-300 card mb-8`;
@@ -40,7 +33,7 @@ const displayPost = posts => {
                     
                     <div class="flex justify-between">
                         <p>
-                            <span class="pr-4"><i class="fa-regular fa-message pr-2"></i></i>${post.comment_count}</span>
+                            <span class="pr-4"><i class="fa-regular fa-message pr-2"></i>${post.comment_count}</span>
                             <span class="pr-4"><i class="fa-solid fa-eye pr-2"></i>${post.view_count}</span>
                             <span><i class="fa-regular fa-clock pr-2"></i>${post.posted_time}</span>
                         </p>
@@ -74,7 +67,7 @@ const displayPost = posts => {
             // Increment appendCount
             appendCount++;
             // Update read count text content
-            readCountElement.textContent = `(${appendCount})`;
+            document.getElementById('read-count').textContent = `(${appendCount})`;
 
             // Append HTML for the read post
             const title = button.getAttribute('data-title');
@@ -85,30 +78,70 @@ const displayPost = posts => {
                     <p><span class="pr-4"><i class="fa-solid fa-eye pr-2"></i>${viewCount}</span></p>
                 </div>
             `;
-            readPostContainer.insertAdjacentHTML('beforeend', readPostHTML);
+            document.getElementById('read-post').insertAdjacentHTML('beforeend', readPostHTML);
         });
     });
-}
+};
 
-loadPost();
+// Function to handle search functionality
+const handleSearch = async () => {
+    const searchInput = document.getElementById('search-input').value.trim().toLowerCase();
 
-// Latest Post Section
+    try {
+        const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/posts');
+        const data = await res.json();
+        const posts = data.posts;
 
-const LatestPost = async () => {
+        // Filter posts based on category
+        const filteredPosts = posts.filter(post => post.category.toLowerCase() === searchInput);
+
+        // Display filtered posts or show message if no posts found
+        if (filteredPosts.length > 0) {
+            displayPosts(filteredPosts, document.getElementById('post-container'));
+        } else {
+            displayNoPostsMessage();
+        }
+    } catch (error) {
+        console.error('Error fetching posts:', error);
+    }
+};
+
+// Function to display message when no posts are found
+const displayNoPostsMessage = () => {
+    document.getElementById('post-container').innerHTML = '<p>No posts found for the entered category.</p>';
+};
+
+// Event listener for search button click
+document.getElementById('search-btn').addEventListener('click', handleSearch);
+
+// Load initial posts
+const loadPost = async () => {
+    try {
+        const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/posts');
+        const data = await res.json();
+        displayPosts(data.posts, document.getElementById('post-container'));
+    } catch (error) {
+        console.error('Error loading posts:', error);
+    }
+};
+
+// Load latest posts
+const loadLatestPosts = async () => {
     try {
         const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/latest-posts');
         const data = await res.json();
-        displayLatestPost(data);
+        displayLatestPosts(data);
     } catch (error) {
-        console.error('Error fetching latest posts:', error);
+        console.error('Error loading latest posts:', error);
     }
-}
+};
 
-const displayLatestPost = (latestPosts) => {
+// Function to display latest posts
+const displayLatestPosts = (latestPosts) => {
     const container = document.getElementById('latest-post-container');
+    container.innerHTML = '';
 
     latestPosts.forEach(post => {
-      
         container.innerHTML += `
             <div class="card w-full bg-base-100 shadow-xl">
                 <figure class="px-10 pt-10">
@@ -131,6 +164,8 @@ const displayLatestPost = (latestPosts) => {
             </div>
         `;
     });
-}
+};
 
-LatestPost();
+// Call functions to load initial and latest posts
+loadPost();
+loadLatestPosts();
