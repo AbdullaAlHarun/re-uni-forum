@@ -2,7 +2,7 @@
 <html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=alphabet-clash, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Re-Uni Fouram</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.0/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -82,41 +82,18 @@
         </section>
 
         <!--Main post Section-->
-        <section class="main-post">
-            <div class="main-post-container grid grid-cols-1 lg:grid-cols-2 gap-x-8 p-4">
+        <section class="main-post-section">
+            <div class="main-post-container flex justify-between text-center">
                 <!--Left side: main post-->
-                <div id="main-post" class="w-60% w-full p-8">
-                    <div class="flex gap-5 rounded-xl border-2 p-6 bg-gray-300">
-                        <div>
-                            <img class="roundaed-xl" src="images/product-2.png">
-                        </div>
-                        <div>
-                            <div class="flex gap-4">
-                                <p># <span id="catagory">Music</span></p>
-                                <p>Author: <span id="author">Awlad Hossain</span></p>
-                            </div>
-                            <h2 class="text-xl font-extrabold text-heading py-4">10 Kids Unaware of Their Halloween Costume</h2>
-                            <p class="text-gray-600">It's one thing to subject yourself to ha Halloween costume mishap because, hey that's your prerogative</p>
-                            <hr class="border-dashed pt-4 pb-4">
-                           <div class="flex justify-between">
-                                <p>
-                                    <span class="pr-4"><i class="fa-regular fa-message pr-2"></i></i>5.0</span>
-                                    <span class="pr-4"><i class="fa-solid fa-eye pr-2"></i>20</span>
-                                    <span><i class="fa-regular fa-clock pr-2"></i>200</span>
-                                </p>
-                                <p>
-                                    <button class="btn btn-circle"><i class="fa-solid fa-envelope-circle-check text-green-500"></i></button>
-                                </p>
-                           </div>
-                        </div>
-                    </div>
+                <div id="post-container" class="w-2/3 p-8">
+
                 </div>
                 <!--right side: Mark as read post-->
-                <div id="read-post" class="w-40% p-8 bg-gray-300 rounded-xl">
+                <div id="read-post" class="w-3/2  p-8 bg-gray-300 rounded-xl">
                     <div class="flex justify-between">
                         <p>Title</p>
                         <p><i class="fa-solid fa-check-double text-green-600"></i>Mark as read
-                        <span id="read-count">(2)</span></p>
+                        <span id="read-count">(0)</span></p>
                     </div>
 
                     <div class="bg-white p-4 flex justify-between text-center rounded-xl mt-4">
@@ -130,6 +107,6 @@
 
     </main>
 
-    <script src="app.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
