@@ -91,3 +91,46 @@ const displayPost = posts => {
 }
 
 loadPost();
+
+// Latest Post Section
+
+const LatestPost = async () => {
+    try {
+        const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/latest-posts');
+        const data = await res.json();
+        displayLatestPost(data);
+    } catch (error) {
+        console.error('Error fetching latest posts:', error);
+    }
+}
+
+const displayLatestPost = (latestPosts) => {
+    const container = document.getElementById('latest-post-container');
+
+    latestPosts.forEach(post => {
+      
+        container.innerHTML += `
+            <div class="card w-full bg-base-100 shadow-xl">
+                <figure class="px-10 pt-10">
+                    <img src="${post.cover_image}" alt="Cover Image" class="rounded-xl" />
+                </figure>
+                <div class="card-body">
+                    <p><i class="fa-solid fa-calendar-days"></i><span class="ml-4">${post.author.posted_date || 'No Publish Date'}</i></span></p>
+                    <h2 class="card-title">${post.title}</h2>
+                    <p>${post.description}</p>
+                    <div class="flex justify-self-start gap-4">
+                        <div>
+                            <img src="${post.profile_image}" alt="Author Image" class="w-11 h-11 rounded-full">
+                        </div>
+                        <div>
+                            <p class="font-bold">${post.author.name}</p>
+                            <p>${post.author.designation || 'Unknown'}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+}
+
+LatestPost();
