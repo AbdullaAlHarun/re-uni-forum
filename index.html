@@ -83,19 +83,21 @@
 
         <!--Main post Section-->
         <section class="main-post-section">
-            <div class="main-post-container flex justify-between text-center">
-                <!--Left side: main post-->
-                <div id="post-container" class="w-2/3 p-8">
-
+            <div class="main-post-container gap-8 flex flex-col md:flex-row justify-between text-center">
+                <!-- Left side: main post -->
+                <div id="post-container" class="w-full md:w-3/5 mb-8 md:mb-0">
+                    <!-- Content for the left side -->
                 </div>
-                <!--right side: Mark as read post-->
-                <div id="read-post" class="w-3/2  p-8 bg-gray-300 rounded-xl">
-                    <div class="flex justify-self-start gap-40">
-                        <p>Title</p>
-                        <p><i class="fa-solid fa-check-double text-green-600"></i>Mark as read
-                        <span id="read-count">(0)</span></p>
+                <!-- Right side: Mark as read post -->
+                <div id="read-post" class="w-full md:w-2/5 p-8 bg-gray-300 rounded-xl">
+                    <div class="flex justify-between items-center w-full">
+                        <p class="text-xl font-bold md:text-base">Title</p>
+                        <p class="flex items-center gap-4">
+                            <i class="fa-solid fa-check-double text-green-600"></i>
+                            Mark as read
+                            <span id="read-count">(0)</span>
+                        </p>
                     </div>
-
                 </div>
             </div>
         </section>

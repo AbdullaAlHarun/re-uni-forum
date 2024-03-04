@@ -15,7 +15,7 @@ const displayPost = posts => {
 
     posts.forEach(post => {
         const postCard = document.createElement('div');
-        postCard.classList = `rounded-xl border-2 p-6 bg-gray-300 card pb-8`;
+        postCard.classList = `rounded-xl border-2 p-6 bg-gray-300 card mb-8`;
         postCard.innerHTML = `
             <div class="card-container flex text-center gap-8">
                 <div class="image-div">
