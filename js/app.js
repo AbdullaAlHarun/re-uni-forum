@@ -1,3 +1,5 @@
+let appendCount = 0; // Initialize counter variable
+
 const loadPost = async () => {
     const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/posts');
     const data = await res.json();
@@ -8,6 +10,8 @@ const loadPost = async () => {
 
 const displayPost = posts => {
     const postContainer = document.getElementById('post-container');
+    const readCountElement = document.getElementById('read-count');
+    const readPostContainer = document.getElementById('read-post');
 
     posts.forEach(post => {
         const postCard = document.createElement('div');
@@ -41,7 +45,7 @@ const displayPost = posts => {
                             <span><i class="fa-regular fa-clock pr-2"></i>${post.posted_time}</span>
                         </p>
                         <p>
-                            <button id="read-done" class="btn btn-circle"><i class="fa-solid fa-envelope-circle-check text-green-500"></i></button>
+                            <button class="btn btn-circle read-done-btn" data-title="${post.title}" data-view-count="${post.view_count}"><i class="fa-solid fa-envelope-circle-check text-green-500"></i></button>
                         </p>
                     </div>
                 </div>
@@ -50,18 +54,29 @@ const displayPost = posts => {
 
         // Append the postCard to the container
         postContainer.appendChild(postCard);
+    });
 
-        // Get the circleIcon for this post
-        var circleIcon = document.getElementById(`circle-icon-${post.id}`);
-        var isActive = post.isActive;
+    // Add event listener to "Mark as read" buttons
+    const readDoneButtons = document.querySelectorAll('.read-done-btn');
+    readDoneButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Increment appendCount
+            appendCount++;
+            // Update read count text content
+            readCountElement.textContent = `(${appendCount})`;
 
-        // Add class based on the value of isActive
-        if (isActive) {
-            circleIcon.classList.add("fa-circle-green");
-        } else {
-            circleIcon.classList.add("fa-circle-red");
-        }
-    })
+            // Append HTML for the read post
+            const title = button.getAttribute('data-title');
+            const viewCount = button.getAttribute('data-view-count');
+            const readPostHTML = `
+                <div class="bg-white p-4 flex justify-between text-center rounded-xl mt-4">
+                    <h2 class="text-xl font-extrabold text-heading py-4">${title}</h2>
+                    <p><span class="pr-4"><i class="fa-solid fa-eye pr-2"></i>${viewCount}</span></p>
+                </div>
+            `;
+            readPostContainer.insertAdjacentHTML('beforeend', readPostHTML);
+        });
+    });
 }
 
 loadPost();
