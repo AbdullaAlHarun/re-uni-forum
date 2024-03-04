@@ -1,11 +1,8 @@
-let appendCount = 0; // Initialize counter variable
+let appendCount = 0; 
 
-// Function to display filtered posts
 const displayPosts = (posts, postContainer) => {
-    // Clear previous posts
     postContainer.innerHTML = '';
 
-    // Display filtered posts
     posts.forEach(post => {
         const postCard = document.createElement('div');
         postCard.classList = `rounded-xl border-2 p-6 bg-gray-300 card mb-8`;
@@ -19,7 +16,7 @@ const displayPosts = (posts, postContainer) => {
                         <i class="fa-solid fa-circle" id="circle-icon-${post.id}"></i>
                     </div>
                 </div>
-                <div>
+                <div class="w-full">
                     <div class="flex gap-4">
                         <p># <span id="category">${post.category}</span></p>
                         <p>Author: <span id="author">${post.author.name}</span></p>
@@ -31,21 +28,22 @@ const displayPosts = (posts, postContainer) => {
                     
                     <hr class="border-dashed pt-4 pb-4">
                     
-                    <div class="flex justify-between">
-                        <p>
+                    <div class="flex justify-between items-center gap-12">
+                        <div class="flex items-center">
                             <span class="pr-4"><i class="fa-regular fa-message pr-2"></i>${post.comment_count}</span>
                             <span class="pr-4"><i class="fa-solid fa-eye pr-2"></i>${post.view_count}</span>
                             <span><i class="fa-regular fa-clock pr-2"></i>${post.posted_time}</span>
-                        </p>
-                        <p>
-                            <button class="btn btn-circle read-done-btn" data-title="${post.title}" data-view-count="${post.view_count}"><i class="fa-solid fa-envelope-circle-check text-green-500"></i></button>
-                        </p>
+                        </div>
+                        <div class="flex items-center justify-end">
+                            <button class="btn btn-circle read-done-btn" data-title="${post.title}" data-view-count="${post.view_count}">
+                                <i class="fa-solid fa-envelope-circle-check text-green-500"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         `;
 
-        // Append the postCard to the container
         postContainer.appendChild(postCard);
 
         // Get the circleIcon for this post
@@ -64,16 +62,14 @@ const displayPosts = (posts, postContainer) => {
     const readDoneButtons = document.querySelectorAll('.read-done-btn');
     readDoneButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // Increment appendCount
             appendCount++;
-            // Update read count text content
             document.getElementById('read-count').textContent = `(${appendCount})`;
 
             // Append HTML for the read post
             const title = button.getAttribute('data-title');
             const viewCount = button.getAttribute('data-view-count');
             const readPostHTML = `
-                <div class="bg-white p-4 flex justify-between text-center rounded-xl mt-4">
+                <div class="bg-white p-4 flex justify-between items-center text-center rounded-xl mt-4">
                     <h2 class="text-xl font-extrabold text-heading py-4">${title}</h2>
                     <p><span class="pr-4"><i class="fa-solid fa-eye pr-2"></i>${viewCount}</span></p>
                 </div>
@@ -86,8 +82,15 @@ const displayPosts = (posts, postContainer) => {
 // Function to handle search functionality
 const handleSearch = async () => {
     const searchInput = document.getElementById('search-input').value.trim().toLowerCase();
+    const loadingSpinner = document.getElementById('loading-spinner');
+
+    // Show loading spinner
+    loadingSpinner.style.display = 'block';
 
     try {
+        //2-second delay
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
         const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/posts');
         const data = await res.json();
         const posts = data.posts;
@@ -103,15 +106,16 @@ const handleSearch = async () => {
         }
     } catch (error) {
         console.error('Error fetching posts:', error);
+    } finally {
+        loadingSpinner.style.display = 'none';
     }
 };
 
-// Function to display message when no posts are found
+// message when no posts are found
 const displayNoPostsMessage = () => {
     document.getElementById('post-container').innerHTML = '<p>No posts found for the entered category.</p>';
 };
 
-// Event listener for search button click
 document.getElementById('search-btn').addEventListener('click', handleSearch);
 
 // Load initial posts
@@ -166,6 +170,5 @@ const displayLatestPosts = (latestPosts) => {
     });
 };
 
-// Call functions to load initial and latest posts
 loadPost();
 loadLatestPosts();
